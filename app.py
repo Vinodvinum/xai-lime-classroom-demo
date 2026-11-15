@@ -11,11 +11,6 @@ from skimage.segmentation import mark_boundaries, slic
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 
-DEFAULT_MODEL_ID = "hafeezaismail/fruit-freshness-convnext"
-try:
-    MODEL_ID = st.secrets.get("FRUIT_MODEL_ID", os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID))
-except Exception:
-    MODEL_ID = os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID)
 DATASET_ID = "Project-AgML/fresh_rotten_fruit_classification"
 SUPPORTED_FRUITS = [
     "Apple", "Banana", "Grape", "Guava",
@@ -28,6 +23,12 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+DEFAULT_MODEL_ID = "hafeezaismail/fruit-freshness-convnext"
+try:
+    MODEL_ID = st.secrets.get("FRUIT_MODEL_ID", os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID))
+except Exception:
+    MODEL_ID = os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID)
 
 st.markdown(
     """
@@ -242,6 +243,7 @@ with upload_tab:
                 'Supported formats: JPG, JPEG, PNG, WEBP.</p>',
                 unsafe_allow_html=True,
             )
+            st.caption("Supported fruit labels: " + ", ".join(SUPPORTED_FRUITS) + ". Other fruit types may be incorrectly assigned one of these labels.")
             uploaded = st.file_uploader(
                 "Upload a fruit photo",
                 type=["jpg", "jpeg", "png", "webp"],
