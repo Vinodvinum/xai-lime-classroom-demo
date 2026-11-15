@@ -54,3 +54,16 @@ LIME Image Explainer segments the photo into superpixels and estimates which reg
 ## Important limitation
 
 This is a computer-vision classroom prototype, not a food-safety or commercial grading system. Visual appearance cannot establish internal spoilage, contamination, pesticides, bacteria, or whether food is safe to eat. Human inspection remains necessary.
+
+## Optional: train your own checkpoint
+
+A reproducible fine-tuning script is included at `training/train_model.py`. It loads the raw Project-AgML data, creates 16 fruit/state labels, makes a stratified 85/15 train/evaluation split, and fine-tunes ConvNeXt-Tiny. It is intended for Google Colab or Kaggle with a GPU; training is not run by the Streamlit app.
+
+```bash
+pip install -r training/requirements.txt
+python training/train_model.py --output_dir fruit-convnext-custom --epochs 4
+```
+
+After training, upload the saved model and processor folder to your own Hugging Face model repository. Set `FRUIT_MODEL_ID` in the Streamlit Community Cloud app Secrets to that model ID to use your checkpoint. Without that secret, the app uses the attributed public checkpoint listed above.
+
+The optional script has been committed but has not been executed in this chat. Do not report a custom training run or custom accuracy until you run it and review its evaluation metrics.
