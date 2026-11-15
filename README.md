@@ -12,6 +12,10 @@ This application is designed for the **Fresh and Rotten Fruits Dataset for Machi
 
 The original `Vinodvinum/Fruits_quality_detection` repository contained only a README with the stated goal of classifying fruit as good or bad. It did not contain source code, training scripts, a dataset, a model checkpoint, or documented feature engineering. This project therefore implements the missing image-classification pipeline rather than claiming to reuse a model that was not present.
 
+## Quick training option: Google Colab
+
+Open the [Colab training notebook](https://colab.research.google.com/github/Vinodvinum/xai-lime-classroom-demo/blob/main/Train_Fruit_Quality_Model_Colab.ipynb). Save the original dataset ZIP to Google Drive, set the ZIP and extracted class-folder paths in the notebook, run the cells, and download the trained model files. The notebook uses the training script in the companion [Fruits_quality_detection repository](https://github.com/Vinodvinum/Fruits_quality_detection).
+
 ## 1. Download and extract the real dataset
 
 Download **Original Image.zip** from the Mendeley Data page above. Extract it so that each class is a separate folder, for example:
