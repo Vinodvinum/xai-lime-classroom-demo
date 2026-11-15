@@ -1,6 +1,17 @@
-# AI vs Explainable AI — LIME Classroom Demo
+# Explainable AI (XAI) Classroom Demo
 
-A small interactive Streamlit application demonstrating the difference between a model prediction and a local explanation produced by LIME.
+A mobile-friendly Streamlit classroom demonstration comparing the same Random Forest prediction in two views:
+
+- **Without XAI:** prediction and model confidence.
+- **With XAI:** the same prediction plus a LIME local explanation.
+
+## What changed in this version
+
+- The LIME explanation is generated automatically; students do not have to find or press a separate explanation button.
+- Changing any fruit-property slider updates both the prediction and the explanation.
+- The interface is arranged for phone and desktop screens.
+- The chart clearly distinguishes positive and negative LIME contributions.
+- Added separate tabs for reading the chart and a short classroom presentation script.
 
 ## Run locally
 
@@ -9,24 +20,22 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy on Streamlit Community Cloud
+## Streamlit Community Cloud
 
-1. Open https://share.streamlit.io/
-2. Sign in with GitHub.
-3. Select this repository: `Vinodvinum/xai-lime-classroom-demo`
-4. Select branch: `main`
-5. Set the main file path to: `app.py`
-6. Click Deploy.
+This repository is configured with `app.py` as the main application file. Streamlit installs the packages from `requirements.txt`.
 
-Streamlit installs packages from `requirements.txt`.
+If the app is already deployed, a new commit to `main` should trigger a redeployment. Open the app's **Manage app** menu on Streamlit Community Cloud to inspect deployment logs if an error appears.
 
-## Classroom flow
+## Classroom demonstration
 
-1. Show the prediction and confidence on the left (without an explanation).
-2. Explain that confidence is not the same as explainability.
-3. Click **Generate explanation** on the right.
-4. Explain the positive and negative LIME bars.
+1. Open the **Live demo** tab.
+2. Change one or more fruit-property sliders.
+3. Compare the prediction and confidence in both cards.
+4. Read the LIME chart: green bars support the displayed prediction; red bars oppose it.
+5. Use **How to read LIME** or **Presentation script** when explaining the result.
 
-## Important limitation
+## Important limitations
 
-The fruit dataset and labels are synthetic, created for teaching. This is not a real fruit-quality model and must not be used for real inspection or operational decisions. LIME provides a local approximate explanation; it does not prove causation or guarantee correctness.
+The fruit dataset and labels are synthetic and are used only to teach the idea. This is not a real or validated fruit-quality model and must not be used for real inspection or operational decisions.
+
+LIME provides a local, approximate explanation of one model prediction. It does not prove causation and does not guarantee that the prediction is correct. Model confidence is not an explanation.
