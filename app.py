@@ -11,10 +11,11 @@ from skimage.segmentation import mark_boundaries, slic
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 
-MODEL_ID = os.getenv(
-    "FRUIT_MODEL_ID",
-    "hafeezaismail/fruit-freshness-convnext",
-)
+DEFAULT_MODEL_ID = "hafeezaismail/fruit-freshness-convnext"
+try:
+    MODEL_ID = st.secrets.get("FRUIT_MODEL_ID", os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID))
+except Exception:
+    MODEL_ID = os.getenv("FRUIT_MODEL_ID", DEFAULT_MODEL_ID)
 DATASET_ID = "Project-AgML/fresh_rotten_fruit_classification"
 SUPPORTED_FRUITS = [
     "Apple", "Banana", "Grape", "Guava",
@@ -117,8 +118,10 @@ def model_probabilities(image_arrays, processor, model):
 
 def human_label(label: str) -> str:
     parts = label.replace("-", "_").split("_")
+    if len(parts) >= 2 and parts[0].lower() in {"fresh", "rotten"}:
+        return f"{parts[0].title()} {parts[1].title()}"
     if len(parts) >= 2:
-        return f"{parts[-1].title()} {parts[0].title()}"
+        return f"{parts[0].title()} {parts[1].title()}"
     return label.replace("_", " ").title()
 
 
